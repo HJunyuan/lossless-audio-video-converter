@@ -43,7 +43,7 @@ function App() {
 
   return (
     <>
-      <div className="container mx-auto my-10 grow space-y-10">
+      <div className="container my-10 grow space-y-10">
         <header className="text-center">
           <h1 className="text-2xl font-bold text-gray-800">Lossless Audio to Video Converter</h1>
           <p className="text-gray-400">Convert your audio files to video using FFmpeg</p>
