@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL, fetchFile } from "@ffmpeg/util";
 
-const BASE_URL = "https://unpkg.com/@ffmpeg/core@0.12.10/dist/esm";
+// const BASE_URL = "https://unpkg.com/@ffmpeg/core@0.12.10/dist/esm"; // unpkg (kept experiencing 503 around Mar 2025)
+const BASE_URL = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm"; // jsDelivr
 
 export function useFfmpeg() {
   const [isLoaded, setLoaded] = useState(false);
