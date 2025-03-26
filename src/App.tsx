@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { LoaderCircle } from "lucide-react";
 
 import { useFfmpeg } from "./hooks/useFfmpeg";
 import { FileDropzone } from "./components/Dropzone";
@@ -40,14 +41,6 @@ function App() {
     });
   }, [inputFilesWithStatus]);
 
-  if (!isLoaded) {
-    return (
-      <div className="container mx-auto flex h-svh items-center justify-center text-gray-800">
-        Please wait while ffmpeg.wasm is loading...
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="container mx-auto my-10 grow space-y-10">
@@ -56,17 +49,28 @@ function App() {
           <p className="text-gray-400">Convert your audio files to video using FFmpeg</p>
         </header>
 
-        <section>
-          <FileDropzone
-            onFilesAdded={(files) => {
-              setInputFilesWithStatus(files.map((file) => ({ file, status: "PENDING" })));
-            }}
-          />
-        </section>
+        {!isLoaded && (
+          <section className="flex h-40 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 py-10 text-center">
+            <div className="space-y-2 text-gray-800">
+              <LoaderCircle className="inline animate-spin" />
+              <p className="font-medium">Loading FFmpeg...</p>
+              <p className="text-sm text-gray-400">
+                This may take a moment. Please ensure JavaScript is enabled in your browser.
+              </p>
+            </div>
+          </section>
+        )}
 
-        <section>
-          <FileList filesWithStatus={inputFilesWithStatus} />
-        </section>
+        {isLoaded && (
+          <section>
+            <FileDropzone
+              onFilesAdded={(files) => {
+                setInputFilesWithStatus(files.map((file) => ({ file, status: "PENDING" })));
+              }}
+            />
+            <FileList filesWithStatus={inputFilesWithStatus} />
+          </section>
+        )}
       </div>
 
       <Footer />
